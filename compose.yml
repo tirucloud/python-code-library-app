@@ -1,7 +1,7 @@
 ---
 services:
   db:
-    image: akhila2701/libapp:db_image
+    image: tirucloud/libapp:db_image
     ports:
       - "3306:3306"
     deploy:
@@ -15,7 +15,7 @@ services:
           memory: 512M
 
   auth_service:
-    image: akhila2701/libapp:auth_image
+    image: tirucloud/libapp:auth_image
     ports:
       - "5001:5001"
     deploy:
@@ -31,7 +31,7 @@ services:
       - db
 
   book_service:
-    image: akhila2701/libapp:book_image
+    image: tirucloud/libapp:book_image
     ports:
       - "5002:5002"
     deploy:
@@ -47,7 +47,7 @@ services:
       - db
 
   borrow_service:
-    image: akhila2701/libapp:borrow_image
+    image: tirucloud/libapp:borrow_image
     ports:
       - "5003:5003"
     deploy:
@@ -63,7 +63,7 @@ services:
       - db
 
   app_service:
-    image: akhila2701/libapp:frontend
+    image: tirucloud/libapp:frontend
     ports:
       - "5000:5000"
     deploy:
