@@ -1,0 +1,81 @@
+---
+services:
+  db:
+    image: akhila2701/libapp:db_image
+    ports:
+      - "3306:3306"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+
+  auth_service:
+    image: akhila2701/libapp:auth_image
+    ports:
+      - "5001:5001"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+    depends_on:
+      - db
+
+  book_service:
+    image: akhila2701/libapp:book_image
+    ports:
+      - "5002:5002"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+    depends_on:
+      - db
+
+  borrow_service:
+    image: akhila2701/libapp:borrow_image
+    ports:
+      - "5003:5003"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+    depends_on:
+      - db
+
+  app_service:
+    image: akhila2701/libapp:frontend
+    ports:
+      - "5000:5000"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+        reservations:
+          cpus: "0.5"
+          memory: 256M
+    depends_on:
+      - auth_service
+      - book_service
+      - borrow_service
